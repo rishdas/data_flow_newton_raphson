@@ -1,0 +1,24 @@
+/**
+ * Document: MaxCompiler Tutorial (maxcompiler-tutorial.pdf)
+ * Chapter: 7      Example: 1      Name: Add scalar
+ * MaxFile Name: AddScalar
+ * Summary:
+ *        Manager showing the use of scalar inupts. All IO is between the CPU and the DFE.
+ */
+package addscalar;
+
+import com.maxeler.maxcompiler.v2.build.EngineParameters;
+import com.maxeler.maxcompiler.v2.managers.standard.Manager;
+import com.maxeler.maxcompiler.v2.managers.standard.Manager.IOType;
+
+class AddScalarManager {
+
+	public static void main(String[] args) {
+		Manager m = new Manager(new EngineParameters(args));
+		m.setKernel(new AddScalarKernel( m.makeKernelParameters()));
+		m.setIO(IOType.ALL_CPU);
+		m.createSLiCinterface();
+		m.build();
+	}
+
+}

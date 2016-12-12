@@ -1,0 +1,36 @@
+/**
+ * Document: MaxCompiler Tutorial (maxcompiler-tutorial.pdf)
+ * Chapter: 7      Example: 1      Name: Add scalar
+ * MaxFile Name: AddScalar
+ * Summary:
+ *        Kernel that adds a scalar to a stream of values.
+ */
+
+package addscalar;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEFloat;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class AddScalarKernel extends Kernel {
+    private static DFEVar x1;
+	AddScalarKernel(KernelParameters parameters) {
+		super(parameters);
+		
+		DFEFloat singleType = dfeFloat(8, 24);
+
+		// Stream Input
+		DFEVar a = io.input("a", singleType);
+		// Scalar Input
+		DFEVar b;
+        b = io.scalarInput("b", singleType);
+		
+        DFEVar h = (a*a - 5)/(2*a);
+        x1 = b-h;
+		
+		// Stream Output
+		
+		io.output("c", x1, singleType);
+	}
+}
